@@ -1,11 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
 ---
 
-<Layout title="Countdown">
-	<div class="countdown">
-		<span class="number" id="countdown"></span>
+<Layout title="J.R.C & A.B.W – 18 May 2026">
+	<div class="container">
+		<div class="card">
+			<p class="names">J.R.C &amp; A.B.W</p>
+			<div class="rule rule-top"></div>
+			<div class="number-block">
+				<span class="number" id="countdown"></span>
+				<span class="label" id="label">DAYS</span>
+			</div>
+			<div class="rule rule-bottom"></div>
+			<p class="date">18 May 2026</p>
+		</div>
 	</div>
 </Layout>
 
@@ -14,22 +22,107 @@ import Layout from '../layouts/Layout.astro';
   const targetDate = new Date('2026-05-18');
   const diffTime = targetDate.getTime() - today.getTime();
   const daysUntil = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  document.getElementById('countdown')!.textContent = String(daysUntil);
+
+  document.getElementById('countdown')!.textContent = String(Math.abs(daysUntil));
+  if (daysUntil < 0) {
+    document.getElementById('label')!.textContent = 'DAYS MARRIED';
+  }
 </script>
 
 <style>
-	.countdown {
+	.container {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		height: 100vh;
 		width: 100vw;
+		background-color: #F8F4EE;
+	}
+
+	@keyframes fadeUp {
+		from { opacity: 0; transform: translateY(6px); }
+		to   { opacity: 1; transform: translateY(0); }
+	}
+
+	@keyframes fadeDown {
+		from { opacity: 0; transform: translateY(-6px); }
+		to   { opacity: 1; transform: translateY(0); }
+	}
+
+	@keyframes fadeIn {
+		from { opacity: 0; }
+		to   { opacity: 1; }
+	}
+
+	@keyframes ruleDraw {
+		from { transform: scaleX(0); }
+		to   { transform: scaleX(1); }
+	}
+
+	.card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.6rem;
+	}
+
+	.names {
+		font-family: 'Cormorant SC', serif;
+		font-weight: 300;
+		font-size: clamp(0.75rem, 1.4vw, 1.05rem);
+		letter-spacing: 0.28em;
+		color: #9E8565;
+		margin: 0;
+		text-transform: uppercase;
+		animation: fadeDown 0.65s ease both 0s;
+	}
+
+	.rule {
+		width: 180px;
+		height: 1px;
+		background: rgba(158, 133, 101, 0.35);
+		transform-origin: center;
+	}
+
+	.rule-top    { animation: ruleDraw 0.65s ease both 0s; }
+	.rule-bottom { animation: ruleDraw 0.65s ease both 0s; }
+
+	.number-block {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.4rem;
+		margin-top: -0.6rem;
 	}
 
 	.number {
-		font-size: 20vw;
-		font-weight: bold;
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-		color: #111;
+		font-family: 'Cormorant Garamond', serif;
+		font-weight: 300;
+		font-size: 18vw;
+		line-height: 0.82;
+		color: #2B2B35;
+		letter-spacing: -0.01em;
+		animation: fadeIn 1.4s ease-in both 0.8s;
+	}
+
+	.label {
+		font-family: 'Cormorant SC', serif;
+		font-weight: 300;
+		font-size: clamp(0.6rem, 1vw, 0.9rem);
+		letter-spacing: 0.42em;
+		color: #9E8565;
+		margin-top: 2.4rem;
+		animation: fadeUp 0.6s ease both 1.6s;
+	}
+
+	.date {
+		font-family: 'Cormorant SC', serif;
+		font-weight: 300;
+		font-size: clamp(0.75rem, 1.4vw, 1.05rem);
+		letter-spacing: 0.25em;
+		color: #2B2B35;
+		margin: 0;
+		opacity: 0.65;
+		animation: fadeUp 0.65s ease both 0s;
 	}
 </style>
