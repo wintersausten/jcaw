@@ -1,17 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const today = new Date();
-const targetDate = new Date('2026-05-18');
-const diffTime = targetDate.getTime() - today.getTime();
-const daysUntil = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 ---
 
 <Layout title="Countdown">
 	<div class="countdown">
-		<span class="number">{daysUntil}</span>
+		<span class="number" id="countdown"></span>
 	</div>
 </Layout>
+
+<script>
+  const today = new Date();
+  const targetDate = new Date('2026-05-18');
+  const diffTime = targetDate.getTime() - today.getTime();
+  const daysUntil = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  document.getElementById('countdown')!.textContent = String(daysUntil);
+</script>
 
 <style>
 	.countdown {
